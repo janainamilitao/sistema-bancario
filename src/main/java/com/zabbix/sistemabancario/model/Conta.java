@@ -59,12 +59,10 @@ public class Conta {
 		this.pessoa = pessoa;
 		this.saldo = saldo;
 		this.limiteSaqueDiario = limiteSaqueDiario;
-		this.flagAtivo = this.flagAtivo;
+		this.flagAtivo = flagAtivo;
 		this.tipoConta = tipoConta;
 		this.dataCriacao = dataCriacao;
 	}
-
-
 
 	public Long getId() {
 		return id;

@@ -1,6 +1,8 @@
 package com.zabbix.sistemabancario.service;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +43,11 @@ public class ContaService extends GenericService<Conta>{
 		}	
 	}
 
-	public String consultarSaldo(Long idConta) throws ContaNotFoundException {
+	public BigDecimal consultarSaldo(Long idConta) throws ContaNotFoundException {
 		Optional<Conta> conta = contaRepository.findById(idConta);		
 
 		if(conta.isPresent()) {	
-			return "Saldo atual: "+conta.get().getSaldo();
+			return conta.get().getSaldo();
 		}
 		else {
 			throw new ContaNotFoundException();
@@ -76,6 +78,11 @@ public class ContaService extends GenericService<Conta>{
 		}else {
 			throw new ContaNotFoundException();
 		}		
+	}
+	
+	public List<Conta> listarContarAtivas() {
+		return contaRepository.findByFlagAtivo(true);
+		
 	}
 
 }

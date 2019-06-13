@@ -1,5 +1,8 @@
 package com.zabbix.sistemabancario.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +45,7 @@ public class ContaController {
 	 */
 	@ApiOperation(value = "Consulta de conta bancaria", response = String.class)
 	@RequestMapping(value = "/consultaSaldo/{idConta}", method= RequestMethod.GET, produces = APPLICATION_JSON)
-	public String consultarSaldo(@PathVariable("idConta") Long idConta) throws Exception {	
+	public BigDecimal consultarSaldo(@PathVariable("idConta") Long idConta) throws Exception {	
 		return contaService.consultarSaldo(idConta);
 	}
 	
@@ -63,5 +66,13 @@ public class ContaController {
 	public Conta desbloquearConta(@PathVariable("idConta") Long idConta) throws Exception {
 		return contaService.desbloquearConta(idConta);
 	}
+	
+	@ApiOperation(value = "Listagem de contas ativas", response = Conta.class)
+	@RequestMapping(value = "/listarContas", method= RequestMethod.GET, produces = APPLICATION_JSON)
+	public List<Conta> listarContas() throws Exception {
+		return contaService.listarContarAtivas();
+	}
+	
+	
 	
 }

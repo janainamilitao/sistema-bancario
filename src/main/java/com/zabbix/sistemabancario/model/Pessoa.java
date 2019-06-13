@@ -25,8 +25,14 @@ public class Pessoa {
 	private String nome;
 
 	@NotNull
-	@Column (name="cpf")
+	@Column
 	private String cpf;
+	
+	@Column
+	private String telefone;
+	
+	@Column
+	private Boolean ativo;
 
 	public Pessoa() {
 
@@ -59,6 +65,22 @@ public class Pessoa {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}	
 
 }
