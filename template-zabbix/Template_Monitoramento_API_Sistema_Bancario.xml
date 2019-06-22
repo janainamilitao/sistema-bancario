@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.2</version>
+    <date>2019-06-22T14:31:45Z</date>
+    <groups>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>001-template_app_bancario</template>
+            <name>Template Monitoramento API Sistema Bancário</name>
+            <description>Template para monitorar métricas da API de um sistema bancário</description>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>API</name>
+                </application>
+                <application>
+                    <name>LLD</name>
+                </application>
+                <application>
+                    <name>Saldo</name>
+                </application>
+            </applications>
+            <items/>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Contas Bancárias</name>
+                    <type>19</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>counts.discovery</key>
+                    <delay>{$FREQUENCY_DISCOVERY}</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>1d</lifetime>
+                    <description>Este item obtém a lista de ID de contas bancárias e espera um retorno no formato JSON.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>LLD: Saldo da conta {#ID}</name>
+                            <type>19</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>conta.saldo[{#ID}]</key>
+                            <delay>{$FREQUENCY_ITEM}</delay>
+                            <history>{$TIME_HISTORY}</history>
+                            <trends>{$TIME_STATISTICS}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>R$</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Este protótipo de item obtém a métrica de saldo das contas bancárias.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>LLD</name>
+                                </application>
+                                <application>
+                                    <name>Saldo</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>{$TIMEOUT}</timeout>
+                            <url>{$APP_PROTOCOL}://{$APP_ADDRESS}:{$APP_PORT}/contas/consultaSaldo/{#ID}</url>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers>
+                                <header>
+                                    <name>accept</name>
+                                    <value>application/json</value>
+                                </header>
+                            </headers>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{001-template_app_bancario:conta.saldo[{#ID}].last()}&lt;{$DESIRED_BALANCE}</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>LLD: Saldo abaixo do esperado na conta {#ID}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>4</priority>
+                            <description>Presado cliente da conta {#ID},&#13;
+&#13;
+O saldo da sua conta bancária encontra-se abaixo do limite desejado.&#13;
+&#13;
+Saldo desejado: R$ {$DESIRED_BALANCE}&#13;
+Saldo atual: {ITEM.LASTVALUE1}</description>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags>
+                                <tag>
+                                    <tag>APP</tag>
+                                    <value>banco</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>LLD: Saldo da conta {#ID}</name>
+                            <width>900</width>
+                            <height>200</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>2</drawtype>
+                                    <color>FF8000</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>7</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>001-template_app_bancario</host>
+                                        <key>conta.saldo[{#ID}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <host_prototypes/>
+                    <jmx_endpoint/>
+                    <timeout>{$TIMEOUT}</timeout>
+                    <url>{$APP_PROTOCOL}://{$APP_ADDRESS}:{$APP_PORT}/contas/listarContas</url>
+                    <query_fields/>
+                    <posts/>
+                    <status_codes>200</status_codes>
+                    <follow_redirects>1</follow_redirects>
+                    <post_type>0</post_type>
+                    <http_proxy/>
+                    <headers>
+                        <header>
+                            <name>accept</name>
+                            <value>application/json</value>
+                        </header>
+                    </headers>
+                    <retrieve_mode>0</retrieve_mode>
+                    <request_method>0</request_method>
+                    <allow_traps>0</allow_traps>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing>
+                        <step>
+                            <type>21</type>
+                            <params>//Fonte: http://rogeralmeida.com.br/blog/2012/01/21/substituir-varias-ocorrencias-de-uma-string-javascript-replace/
+
+// value é o nome da variavel do Zabbix que contém o último valor da métrica coletada pelo item
+
+// String que irá ser substituída 
+var busca = 'id'; 
+
+// Aqui informamos para alterar todas as ocorrências de &quot;id&quot; 
+var strbusca = eval('/'+busca+'/g'); 
+
+// Aqui são substituidas todas as ocorrências de &quot;id&quot; por &quot;{#ID}&quot; 
+var resultado = value.replace(strbusca,'{#ID}'); 
+
+return resultado;</params>
+                            <error_handler>0</error_handler>
+                            <error_handler_params/>
+                        </step>
+                    </preprocessing>
+                    <master_item/>
+                </discovery_rule>
+            </discovery_rules>
+            <httptests>
+                <httptest>
+                    <name>Monitorando a API da aplicação</name>
+                    <application>
+                        <name>API</name>
+                    </application>
+                    <delay>{$FREQUENCY_ITEM}</delay>
+                    <attempts>3</attempts>
+                    <agent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36</agent>
+                    <http_proxy/>
+                    <variables/>
+                    <headers/>
+                    <status>0</status>
+                    <authentication>0</authentication>
+                    <http_user/>
+                    <http_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <steps>
+                        <step>
+                            <name>Acessando a API Swagger</name>
+                            <url>{$APP_PROTOCOL}://{$APP_ADDRESS}:{$APP_PORT}/swagger-ui.html</url>
+                            <query_fields/>
+                            <posts/>
+                            <variables/>
+                            <headers/>
+                            <follow_redirects>1</follow_redirects>
+                            <retrieve_mode>2</retrieve_mode>
+                            <timeout>{$TIMEOUT}</timeout>
+                            <required>swagger</required>
+                            <status_codes>200</status_codes>
+                        </step>
+                    </steps>
+                </httptest>
+            </httptests>
+            <macros>
+                <macro>
+                    <macro>{$APP_ADDRESS}</macro>
+                    <value>172.17.0.1</value>
+                </macro>
+                <macro>
+                    <macro>{$APP_PORT}</macro>
+                    <value>8080</value>
+                </macro>
+                <macro>
+                    <macro>{$APP_PROTOCOL}</macro>
+                    <value>http</value>
+                </macro>
+                <macro>
+                    <macro>{$COIN}</macro>
+                    <value>R$</value>
+                </macro>
+                <macro>
+                    <macro>{$COUNT}</macro>
+                    <value>52</value>
+                </macro>
+                <macro>
+                    <macro>{$DESIRED_BALANCE}</macro>
+                    <value>100</value>
+                </macro>
+                <macro>
+                    <macro>{$FREQUENCY_DISCOVERY}</macro>
+                    <value>60s</value>
+                </macro>
+                <macro>
+                    <macro>{$FREQUENCY_ITEM}</macro>
+                    <value>5s</value>
+                </macro>
+                <macro>
+                    <macro>{$TIMEOUT}</macro>
+                    <value>5s</value>
+                </macro>
+                <macro>
+                    <macro>{$TIME_HISTORY}</macro>
+                    <value>7d</value>
+                </macro>
+                <macro>
+                    <macro>{$TIME_STATISTICS}</macro>
+                    <value>365d</value>
+                </macro>
+            </macros>
+            <templates/>
+            <screens/>
+            <tags/>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{001-template_app_bancario:web.test.fail[Monitorando a API da aplicação].last()}&lt;&gt;0</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>API: Algum(ns) passo(s) do cenário web que monitora a aplicação web falhou(aram)</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Analise as mensagens de erros dos passos que falharam.&#13;
+&#13;
+Resultado desejado: 0&#13;
+Quantidade de passo(s) que falhou(aram): {ITEM.LASTVALUE1}</description>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{001-template_app_bancario:web.test.rspcode[Monitorando a API da aplicação,Acessando a API Swagger].last()}&lt;&gt;200</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>API: Código de resposta HTTP é diferente de 200 ao acessar a API da aplicação</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>O código de resposta HTTP está diferente do desejado. &#13;
+&#13;
+Está ocorrendo alguma manutenção/atualização da aplicação planejada?&#13;
+A aplicação está realmente acessível?&#13;
+Tem algum firewall bloqueando a porta de acesso à aplicação?&#13;
+A aplicação está aguentando a carga de acesso e processamento das requisições?&#13;
+&#13;
+Código HTTP de resposta desejado: 200&#13;
+Três últimos códigos de resposta HTTP coletados:&#13;
+{$ITEM.LASTVALUE1}&#13;
+{$ITEM.LASTVALUE2}&#13;
+{$ITEM.LASTVALUE3}</description>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{001-template_app_bancario:web.test.time[Monitorando a API da aplicação,Acessando a API Swagger,resp].last()}&gt;=5000</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>API: O tem de resposta da aplicação web é maior que 5s (5000ms)</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>O tem de resposta da aplicação web é maior que 5s (5000ms)&#13;
+&#13;
+Resultado desejado: &lt;=5000 ms&#13;
+Tempo de resposta obtidos nas três últimas coletas: &#13;
+{ITEM.LASTVALUE1}&#13;
+{ITEM.LASTVALUE2}&#13;
+{ITEM.LASTVALUE3}</description>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+    </triggers>
+</zabbix_export>
