@@ -1,7 +1,5 @@
 package com.zabbix.sistemabancario.controller;
 
-import java.math.BigDecimal;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

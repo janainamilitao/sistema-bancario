@@ -29,17 +29,13 @@ public class PessoaController {
 	private static final String APPLICATION_JSON  = "application/json";
 
 	@ApiOperation(value = "Cadastro de Pessoa", response = Pessoa.class)
-	@RequestMapping(value = "/cadastrarPessoa", 
-	method= RequestMethod.POST, 
-	produces = APPLICATION_JSON)
+	@RequestMapping(value = "/cadastrarPessoa", method= RequestMethod.POST, produces = APPLICATION_JSON)
 	public Pessoa cadastrarPessoa(PessoaDTO pessoa) {
 		return pessoaService.cadastrarPessoa(pessoa);
 	}
 
 	@ApiOperation(value = "Listagem de Pessoas", response = Pessoa.class)
-	@RequestMapping(value = "/listarPessoas", 
-			method= RequestMethod.GET, 
-			produces = APPLICATION_JSON)
+	@RequestMapping(value = "/listarPessoas", method= RequestMethod.GET, produces = APPLICATION_JSON)
 	public List<Pessoa> listarPessoas() {
 		return pessoaService.listarPessoas();
 	}

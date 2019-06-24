@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class Pessoa {
 
 	@Id
-	@SequenceGenerator(name = "pessoa_seq", sequenceName = "pessoa_seq")
+	@SequenceGenerator(name = "pessoa_seq", sequenceName = "pessoa_seq", initialValue = 1, allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_seq")
 	private Long id;	
 
@@ -38,9 +38,10 @@ public class Pessoa {
 
 	}
 
-	public Pessoa(String nome, String cpf) {
+	public Pessoa(String nome, String cpf, String telefone) {
 		this.nome = nome;
 		this.cpf = cpf;
+		this.telefone = telefone;
 	}
 
 	public Long getId() {

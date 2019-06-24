@@ -30,8 +30,8 @@ public class ContaService extends GenericService<Conta>{
 	@Autowired 
 	private PessoaRepository pessoaRepository;
 	
-	public Conta criarConta(ContaDTO contaDTO) throws PessoaNotFoundException {
-		Optional<Pessoa> pessoa = pessoaRepository.findById(contaDTO.getIdPessoa());
+	public Conta criarConta(ContaDTO contaDTO, Long idPessoa) throws PessoaNotFoundException {
+		Optional<Pessoa> pessoa = pessoaRepository.findById(idPessoa);
 		
 		if(pessoa.isPresent()) {
 			Conta conta  = contaDTO.transformaParaObjeto(pessoa.get());

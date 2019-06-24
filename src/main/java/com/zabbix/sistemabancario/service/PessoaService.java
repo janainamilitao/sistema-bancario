@@ -20,7 +20,9 @@ public class PessoaService extends GenericService<Pessoa>{
 
 	public Pessoa cadastrarPessoa(PessoaDTO pessoaDTO) {
 		
-		Pessoa pessoa = pessoaDTO.transformaParaObjeto();	
+		Pessoa pessoa = pessoaDTO.transformaParaObjeto();
+		pessoa.setCpf(pessoa.getCpf().replace(".", "").replace("-", ""));
+		pessoa.setAtivo(true);
 		
 		return pessoaRepository.saveAndFlush(pessoa);
 	}

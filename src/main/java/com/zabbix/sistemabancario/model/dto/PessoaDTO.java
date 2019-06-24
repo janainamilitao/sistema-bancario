@@ -7,25 +7,20 @@ import com.zabbix.sistemabancario.model.Pessoa;
 
 public class PessoaDTO {
 	
-	private Long id;
-	
+		
 	@NotBlank
 	private String nome;
 	
 	@NotNull
 	private String cpf;
 	
+	@NotNull
+	private String telefone;
+	
 	public  Pessoa transformaParaObjeto() {
-		return new Pessoa(nome, cpf);
+		return new Pessoa(nome, cpf, telefone);
 	}
 
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getNome() {
 		return nome;
 	}
@@ -37,6 +32,13 @@ public class PessoaDTO {
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}	
+	}
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}	
 }
