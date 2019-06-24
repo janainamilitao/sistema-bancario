@@ -8,21 +8,19 @@ import com.zabbix.sistemabancario.model.Pessoa;
 import com.zabbix.sistemabancario.model.TipoContaEnum;
 
 
-public class ContaDTO {
+public class ContaRequest {
 
 	private BigDecimal saldo;
 
 	private BigDecimal limiteSaqueDiario;
 
-	private Boolean flagAtivo;
 
 	private TipoContaEnum tipoConta;
 
-	private Date dataCriacao;
 
 	
 	public Conta transformaParaObjeto(Pessoa pessoa) {
-		return new Conta(pessoa, saldo, limiteSaqueDiario, flagAtivo, tipoConta, dataCriacao);
+		return new Conta(pessoa, saldo, limiteSaqueDiario, tipoConta);
 	}
 
 
@@ -42,14 +40,7 @@ public class ContaDTO {
 		this.limiteSaqueDiario = limiteSaqueDiario;
 	}
 
-	public Boolean getFlagAtivo() {
-		return flagAtivo;
-	}
-
-	public void setFlagAtivo(Boolean flagAtivo) {
-		this.flagAtivo = flagAtivo;
-	}
-
+	
 	public TipoContaEnum getTipoConta() {
 		return tipoConta;
 	}
@@ -58,13 +49,6 @@ public class ContaDTO {
 		this.tipoConta = tipoConta;
 	}
 
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
 
 
 }

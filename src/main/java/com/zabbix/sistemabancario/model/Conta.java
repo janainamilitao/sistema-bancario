@@ -55,13 +55,11 @@ public class Conta {
 
 	}
 
-	public  Conta(Pessoa pessoa, BigDecimal saldo, BigDecimal limiteSaqueDiario, Boolean flagAtivo, TipoContaEnum tipoConta, Date dataCriacao) {
+	public  Conta(Pessoa pessoa, BigDecimal saldo, BigDecimal limiteSaqueDiario, TipoContaEnum tipoConta) {
 		this.pessoa = pessoa;
 		this.saldo = saldo;
 		this.limiteSaqueDiario = limiteSaqueDiario;
-		this.flagAtivo = flagAtivo;
 		this.tipoConta = tipoConta;
-		this.dataCriacao = dataCriacao;
 	}
 
 	public Long getId() {

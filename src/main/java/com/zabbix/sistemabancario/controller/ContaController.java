@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zabbix.sistemabancario.model.Conta;
-import com.zabbix.sistemabancario.model.dto.ContaDTO;
+import com.zabbix.sistemabancario.model.dto.ContaRequest;
 import com.zabbix.sistemabancario.service.ContaService;
 
 import io.swagger.annotations.Api;
@@ -35,7 +35,7 @@ public class ContaController {
 	 */
 	@ApiOperation(value = "Criação de conta bancaria", response = Conta.class)
 	@RequestMapping(value = "/criarConta/{idPessoa}", method= RequestMethod.POST, produces = APPLICATION_JSON, consumes = APPLICATION_JSON )
-	public Conta criarConta(ContaDTO conta, @PathVariable("idConta") Long idPessoa) throws Exception {
+	public Conta criarConta(ContaRequest conta, @PathVariable("idConta") Long idPessoa) throws Exception {
 		return contaService.criarConta(conta, idPessoa);	
 	}
 	
