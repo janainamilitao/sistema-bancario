@@ -1,18 +1,16 @@
 package com.zabbix.sistemabancario.controller;
 
-import javax.validation.Valid;
+import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zabbix.sistemabancario.model.Conta;
 import com.zabbix.sistemabancario.model.Extrato;
-import com.zabbix.sistemabancario.model.dto.TransacaoRequest;
 import com.zabbix.sistemabancario.service.TransacaoService;
 
 import io.swagger.annotations.Api;
@@ -36,8 +34,8 @@ public class TransacaoController {
 	 */
 
 	@PostMapping("/deposito/{idConta}")
-	public Conta deposito(@Valid @RequestBody TransacaoRequest transacaoRequest, @PathVariable("idConta") Long idConta) throws Exception {		
-		return transacaoService.deposito(transacaoRequest.getValor(), idConta);
+	public Conta deposito(BigDecimal valor, @PathVariable("idConta") Long idConta) throws Exception {		
+		return transacaoService.deposito(valor, idConta);
 	}
 
 	/***
@@ -48,8 +46,8 @@ public class TransacaoController {
 	 * @throws Exception
 	 */
 	@PostMapping("/saque/{idConta}")
-	public Conta saque(@Valid @RequestBody TransacaoRequest transacaoRequest, @PathVariable("idConta") Long idConta) throws Exception {		
-		return transacaoService.saque(transacaoRequest.getValor(), idConta);
+	public Conta saque(BigDecimal valor, @PathVariable("idConta") Long idConta) throws Exception {		
+		return transacaoService.saque(valor, idConta);
 	}
 	/**
 	 * Realiza extrato da conta recebendo como paramentro ID da conta e caso não exista lança exceção.

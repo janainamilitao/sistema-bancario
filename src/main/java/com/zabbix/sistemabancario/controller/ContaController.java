@@ -34,8 +34,8 @@ public class ContaController {
 	 * Cria uma conta recebendo como paramentro ID de pessoa já criada e caso não exista lança uma exceção
 	 */
 	@ApiOperation(value = "Criação de conta bancaria", response = Conta.class)
-	@RequestMapping(value = "/criarConta/{idPessoa}", method= RequestMethod.POST, produces = APPLICATION_JSON, consumes = APPLICATION_JSON )
-	public Conta criarConta(ContaRequest conta, @PathVariable("idConta") Long idPessoa) throws Exception {
+	@RequestMapping(value = "/criarConta/{idPessoa}", method= RequestMethod.POST, produces = APPLICATION_JSON )
+	public Conta criarConta(ContaRequest conta, @PathVariable("idPessoa") Long idPessoa) throws Exception {
 		return contaService.criarConta(conta, idPessoa);	
 	}
 	

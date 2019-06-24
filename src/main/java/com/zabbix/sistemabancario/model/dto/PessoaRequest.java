@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import com.zabbix.sistemabancario.model.Pessoa;
 
-public class PessoaDTO {
+public class PessoaRequest {
 	
 		
 	@NotBlank
