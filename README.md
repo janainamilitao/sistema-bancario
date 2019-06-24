@@ -71,10 +71,48 @@ sudo usermod -aG docker $USUARIO
 sudo setfacl -m user:$USUARIO:rw /var/run/docker.sock
 ```
 
-## Executando a aplicação usando o Docker
+## Iniciando o conteiner da aplicação
 
-Use o comando a seguir para iniciar um conteiner da aplicação e removê-lo automaticamente após a execução dos testes.
+Use o comando a seguir para iniciar um conteiner do banco de dados.
 
 ```sh
-docker run --rm -i -t --name challenge jmilitao/challenge:latest /bin/bash
+sudo mkdir -p /docker/postgresql/sistema-bancario/data
+sudo chown -R 999:999 /docker/postgresql/sistema-bancario/data
+
+docker run -p 5433:5432 -d --name postgres \
+--restart=always \
+-v /docker/postgresql/sistema-bancario/data:/var/lib/postgresql/data \
+-e POSTGRES_DB="sistema-bancario" \
+-e POSTGRES_PASSWORD="postgres" \
+-e POSTGRES_USER="postgres" \
+postgres
 ```
+
+Use o comando a seguir para iniciar um conteiner da aplicação.
+
+```sh
+docker run -d -p 8080:8080 --name sistema-bancario \
+-e DATASOURCE_URL="postgresql://172.17.0.1:5433/sistema-bancario" \
+-e DATASOURCE_USERNAME="postgres" \
+-e DATASOURCE_PASSWORD="postgres" \
+jmilitao/sistema-bancario:latest
+```
+
+Acesse a API da aplicação na URL http://172.17.0.1:8080/swagger-ui.html
+
+Use os comandos a seguir visualizar o log dos conteineres.
+
+```sh
+docker logs -f postgres
+docker logs -f sistema-bancario
+```
+
+## Referências do Docker
+
+https://docs.docker.com/engine/tutorials/dockerimages/
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+
+https://docs.docker.com/engine/reference/commandline/commit/
+
+https://www.digitalocean.com/community/tutorials/docker-explained-how-to-create-docker-containers-running-memcached
