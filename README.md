@@ -2,6 +2,8 @@
 [Operações do Sistema]: #operacoes-do-sistema
 [Instalando o Docker-CE]: #instalando-o-docker-ce
 [Iniciando o conteiner da aplicação]: #inciando-o-conteiner-da-aplicação
+[Compilando a imagem Docker da aplicação]: #compilando-a-imagem-docker-da-aplicação
+[Executando a aplicação usando o DockerCompose]: #executando-a-aplicação-usando-o-DockerCompose
 [Referências do Docker]: #referências-do-docker
 
 # Conteúdo
@@ -9,7 +11,9 @@
     - [Operações do Sistema][Operações do Sistema]
 2. [Instalando o Docker-CE][Instalando o Docker-CE]
 3. [Iniciando o conteiner da aplicação][Iniciando o conteiner da aplicação]
-4. [Referências do Docker][Referências do Docker]
+4. [Compilando a imagem Docker da aplicação][Compilando a imagem Docker da aplicação]
+5. [Executando a aplicação usando o DockerCompose][Executando a aplicação usando o DockerCompose]
+6. [Referências do Docker][Referências do Docker]
 
 # Sobre a Aplicação
 
@@ -63,7 +67,7 @@ A seguir estão os endpoints disponíveis na API Swagger da aplicação.
 
 ![alt text](images/11_extrato_periodo.png "Extrato por Período")
 
-## Instalando o Docker-CE
+# Instalando o Docker-CE
 
 * Instale o Docker-CE seguindo as instruções das páginas abaixo de acordo com a
 distribuição GNU/Linux.
@@ -84,7 +88,7 @@ sudo usermod -aG docker $USUARIO
 sudo setfacl -m user:$USUARIO:rw /var/run/docker.sock
 ```
 
-## Iniciando o conteiner da aplicação
+# Iniciando o conteiner da aplicação
 
 Use o comando a seguir para iniciar um conteiner do banco de dados.
 
@@ -120,7 +124,15 @@ docker logs -f postgres
 docker logs -f sistema-bancario
 ```
 
-## Referências do Docker
+# Compilando a imagem Docker da aplicação
+
+Para saber como gerar um novo pacote e uma nova imagem Docker da aplicação acesse as instruções [aqui](README_DOCKER_APP.md).
+
+# Executando a aplicação usando o DockerCompose
+
+Para saber como executar a aplicação usando o DockerCompose acesse as instruções [aqui](README_DOCKERCOMPOSE.md).
+
+# Referências do Docker
 
 https://docs.docker.com/engine/tutorials/dockerimages/
 
