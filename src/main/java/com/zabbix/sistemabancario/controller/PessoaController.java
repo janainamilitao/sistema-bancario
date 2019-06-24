@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zabbix.sistemabancario.model.Pessoa;
-import com.zabbix.sistemabancario.model.dto.PessoaDTO;
+import com.zabbix.sistemabancario.model.dto.PessoaRequest;
 import com.zabbix.sistemabancario.service.PessoaService;
 
 import io.swagger.annotations.Api;
@@ -29,17 +29,13 @@ public class PessoaController {
 	private static final String APPLICATION_JSON  = "application/json";
 
 	@ApiOperation(value = "Cadastro de Pessoa", response = Pessoa.class)
-	@RequestMapping(value = "/cadastrarPessoa", 
-	method= RequestMethod.POST, 
-	produces = APPLICATION_JSON)
-	public Pessoa cadastrarPessoa(PessoaDTO pessoa) {
+	@RequestMapping(value = "/cadastrarPessoa", method= RequestMethod.POST, produces = APPLICATION_JSON)
+	public Pessoa cadastrarPessoa(PessoaRequest pessoa) {
 		return pessoaService.cadastrarPessoa(pessoa);
 	}
 
 	@ApiOperation(value = "Listagem de Pessoas", response = Pessoa.class)
-	@RequestMapping(value = "/listarPessoas", 
-			method= RequestMethod.GET, 
-			produces = APPLICATION_JSON)
+	@RequestMapping(value = "/listarPessoas", method= RequestMethod.GET, produces = APPLICATION_JSON)
 	public List<Pessoa> listarPessoas() {
 		return pessoaService.listarPessoas();
 	}

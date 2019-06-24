@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zabbix.sistemabancario.model.Conta;
-import com.zabbix.sistemabancario.model.dto.ContaDTO;
+import com.zabbix.sistemabancario.model.dto.ContaRequest;
 import com.zabbix.sistemabancario.service.ContaService;
 
 import io.swagger.annotations.Api;
@@ -34,9 +34,9 @@ public class ContaController {
 	 * Cria uma conta recebendo como paramentro ID de pessoa já criada e caso não exista lança uma exceção
 	 */
 	@ApiOperation(value = "Criação de conta bancaria", response = Conta.class)
-	@RequestMapping(value = "/criarConta", method= RequestMethod.POST, produces = APPLICATION_JSON, consumes = APPLICATION_JSON )
-	public Conta criarConta(@RequestBody ContaDTO conta) throws Exception {
-		return contaService.criarConta(conta);	
+	@RequestMapping(value = "/criarConta/{idPessoa}", method= RequestMethod.POST, produces = APPLICATION_JSON )
+	public Conta criarConta(ContaRequest conta, @PathVariable("idPessoa") Long idPessoa) throws Exception {
+		return contaService.criarConta(conta, idPessoa);	
 	}
 	
 	

@@ -12,7 +12,7 @@ import com.zabbix.sistemabancario.exception.ContaNotFoundException;
 import com.zabbix.sistemabancario.exception.PessoaNotFoundException;
 import com.zabbix.sistemabancario.model.Conta;
 import com.zabbix.sistemabancario.model.Pessoa;
-import com.zabbix.sistemabancario.model.dto.ContaDTO;
+import com.zabbix.sistemabancario.model.dto.ContaRequest;
 import com.zabbix.sistemabancario.repository.ContaRepository;
 import com.zabbix.sistemabancario.repository.PessoaRepository;
 
@@ -30,11 +30,11 @@ public class ContaService extends GenericService<Conta>{
 	@Autowired 
 	private PessoaRepository pessoaRepository;
 	
-	public Conta criarConta(ContaDTO contaDTO) throws PessoaNotFoundException {
-		Optional<Pessoa> pessoa = pessoaRepository.findById(contaDTO.getIdPessoa());
+	public Conta criarConta(ContaRequest contaRequest, Long idPessoa) throws PessoaNotFoundException {
+		Optional<Pessoa> pessoa = pessoaRepository.findById(idPessoa);
 		
 		if(pessoa.isPresent()) {
-			Conta conta  = contaDTO.transformaParaObjeto(pessoa.get());
+			Conta conta  = contaRequest.transformaParaObjeto(pessoa.get());
 			conta.setFlagAtivo(Boolean.TRUE);
 			conta.setDataCriacao(new Date());
 			return contaRepository.saveAndFlush(conta);
