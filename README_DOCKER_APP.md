@@ -1,5 +1,12 @@
+[Compilando a imagem Docker da aplicação]: #compilando-a-imagem-docker-da-aplicação
+[Iniciando o conteiner da aplicação]: #inciando-o-conteiner-da-aplicação
 
-## Compilando a imagem Docker da aplicação
+
+# Conteúdo
+1. [Compilando a imagem Docker da aplicação][Compilando a imagem Docker da aplicação]
+2. [Iniciando o conteiner da aplicação][Iniciando o conteiner da aplicação]
+
+# Compilando a imagem Docker da aplicação
 
 Considerando que você já tem o Docker-CE instalado, use o
 comando a seguir para gerar uma imagem docker para a aplicação.
@@ -9,6 +16,8 @@ comando a seguir para gerar uma imagem docker para a aplicação.
 ```sh
 git clone https://github.com/janainamilitao/sistema-bancario
 cd sistema-bancario
+./mvnw package
+mv target/sistema-bancario-0.0.1-SNAPSHOT.jar sistema-bancario.jar
 VERSION=1.0.0
 docker build -t jmilitao/sistema-bancario:$VERSION .
 docker tag jmilitao/sistema-bancario:$VERSION jmilitao/sistema-bancario:latest
@@ -22,7 +31,7 @@ docker push jmilitao/sistema-bancario:$VERSION
 docker push jmilitao/sistema-bancario:latest
 ```
 
-## Iniciando o conteiner da aplicação
+# Iniciando o conteiner da aplicação
 
 Use o comando a seguir para iniciar um conteiner do banco de dados.
 
@@ -58,12 +67,4 @@ docker logs -f postgres
 docker logs -f sistema-bancario
 ```
 
-## Referências do Docker
-
-https://docs.docker.com/engine/tutorials/dockerimages/
-
-https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
-
-https://docs.docker.com/engine/reference/commandline/commit/
-
-https://www.digitalocean.com/community/tutorials/docker-explained-how-to-create-docker-containers-running-memcached
+Se quiser fazer backup do banco criado anteriormente, basta fazer backup do diretório ``/docker/postgresql/sistema-bancario/data``.

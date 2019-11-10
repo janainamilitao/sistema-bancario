@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  sistema-bancario:
+    image: jmilitao/sistema-bancario:latest
+    environment:
+      - DATASOURCE_URL=postgresql://172.17.0.1:5433/sistema-bancario
+      - DATASOURCE_USERNAME=postgres
+      - DATASOURCE_PASSWORD=postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "postgres"
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=sistema-bancario
+    volumes:
+      - /docker/postgresql/sistema-bancario/data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
