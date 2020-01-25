@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
  */
 
 @Entity(name = "conta")
-
 public class Conta {
 
 	@Id

@@ -43,8 +43,6 @@ public class TransacaoService extends GenericService<Transacao>{
 			}
 
 			Transacao transacao = new Transacao();
-
-
 			transacao.setDataTransacao(new Date());
 			transacao.setConta(conta);
 			transacao.setTipoTransacao(TipoTransacaoEnum.DEPOSITO);
