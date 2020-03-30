@@ -13,10 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
 /**
  * @author janaina militão
  */
 @Entity
+@Getter
+@Setter
 public class Transacao {
 	
 	@Id
@@ -40,46 +45,5 @@ public class Transacao {
 	@NotNull
 	@Column (name = "tipo_transacao")
 	private TipoTransacaoEnum tipoTransacao;
-	
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-
-	public Date getDataTransacao() {
-		return dataTransacao;
-	}
-
-	public void setDataTransacao(Date dataTransacao) {
-		this.dataTransacao = dataTransacao;
-	}
-
-	public Conta getConta() {
-		return conta;
-	}
-
-	public void setConta(Conta conta) {
-		this.conta = conta;
-	}
-
-	public TipoTransacaoEnum getTipoTransacao() {
-		return tipoTransacao;
-	}
-
-	public void setTipoTransacao(TipoTransacaoEnum tipoTransacao) {
-		this.tipoTransacao = tipoTransacao;
-	}
-	
+		
 }

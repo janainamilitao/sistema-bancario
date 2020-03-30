@@ -13,11 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
 /**
  * @author janaina militão
  */
 
 @Entity(name = "conta")
+@Getter
+@Setter
 public class Conta {
 
 	@Id
@@ -60,64 +65,4 @@ public class Conta {
 		this.limiteSaqueDiario = limiteSaqueDiario;
 		this.tipoConta = tipoConta;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public BigDecimal getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(BigDecimal saldo) {
-		this.saldo = saldo;
-	}
-
-
-	public Boolean getFlagAtivo() {
-		return flagAtivo;
-	}
-
-	public void setFlagAtivo(Boolean flagAtivo) {
-		this.flagAtivo = flagAtivo;
-	}
-
-	public TipoContaEnum getTipoConta() {
-		return tipoConta;
-	}
-
-	public void setTipoConta(TipoContaEnum tipoConta) {
-		this.tipoConta = tipoConta;
-	}
-
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-
-
-	public void setLimiteSaqueDiario(BigDecimal limiteSaqueDiario) {
-		this.limiteSaqueDiario = limiteSaqueDiario;
-	}
-
-	public BigDecimal getLimiteSaqueDiario() {
-		return limiteSaqueDiario;
-	}
-
 }

@@ -83,8 +83,7 @@ public class TransacaoService extends GenericService<Transacao>{
 
 				conta.setSaldo(conta.getSaldo().subtract(transacao.getValor()));				
 				return contaReporitory.saveAndFlush(conta);
-			}	
-
+			}
 		}else {			
 			throw new ContaNotFoundException();
 		}
@@ -100,7 +99,6 @@ public class TransacaoService extends GenericService<Transacao>{
 			Extrato extrato = calcularExtrato(conta, transacoes);
 
 			return extrato;
-
 		}else {			
 			throw new ContaNotFoundException();
 		}
@@ -126,39 +124,33 @@ public class TransacaoService extends GenericService<Transacao>{
 	}	
 	
 	private Extrato calcularExtrato(Conta conta, List<Transacao> transacoes) {
-		Extrato extrato = new Extrato();
-		extrato.setIdConta(conta.getId());
-		extrato.setUsuarioConta(conta.getPessoa().getNome());
-
-
 		List<OperacaoFinanceira> operacoes = new ArrayList<OperacaoFinanceira>();
-		for(Transacao transacao: transacoes) {
-			OperacaoFinanceira operacao = new OperacaoFinanceira();
-			operacao.setDataOperacao(transacao.getDataTransacao());
-			operacao.setTipoOperacao(transacao.getTipoTransacao());	
-			operacao.setValorOperacao(transacao.getValor());
+		
+		transacoes.stream().forEach(transacao -> calculaOperacaoFinanceira(conta, operacoes, transacao));
 
-			BigDecimal saldoAnterior = conta.getSaldo();
-
-			if(operacao.getTipoOperacao().equals(TipoTransacaoEnum.DEPOSITO)) {
-				saldoAnterior = saldoAnterior.subtract(transacao.getValor());
-				operacao.setSaldoAnterior(saldoAnterior);
-				operacao.setSaldoAtual(saldoAnterior.add(transacao.getValor()));
-
-			}else if(operacao.getTipoOperacao().equals(TipoTransacaoEnum.SAQUE)) {
-				saldoAnterior = saldoAnterior.add(transacao.getValor());
-				operacao.setSaldoAnterior(saldoAnterior);
-				operacao.setSaldoAtual(saldoAnterior.subtract(transacao.getValor()));				
-			}
-
-			operacoes.add(operacao);
-		}
-
-		extrato.setOperacaoFinanceiraList(operacoes);
-
-		return extrato;
+		return new Extrato(conta.getId(), conta.getPessoa().getNome(), operacoes);
 	}
 
-	
+	private void calculaOperacaoFinanceira(Conta conta, List<OperacaoFinanceira> operacoes, Transacao transacao) {
+		OperacaoFinanceira operacao = new OperacaoFinanceira();
+		operacao.setDataOperacao(transacao.getDataTransacao());
+		operacao.setTipoOperacao(transacao.getTipoTransacao());	
+		operacao.setValorOperacao(transacao.getValor());
+
+		BigDecimal saldoAnterior = conta.getSaldo();
+
+		if(operacao.getTipoOperacao().equals(TipoTransacaoEnum.DEPOSITO)) {
+			saldoAnterior = saldoAnterior.subtract(transacao.getValor());
+			operacao.setSaldoAnterior(saldoAnterior);
+			operacao.setSaldoAtual(saldoAnterior.add(transacao.getValor()));
+
+		}else if(operacao.getTipoOperacao().equals(TipoTransacaoEnum.SAQUE)) {
+			saldoAnterior = saldoAnterior.add(transacao.getValor());
+			operacao.setSaldoAnterior(saldoAnterior);
+			operacao.setSaldoAtual(saldoAnterior.subtract(transacao.getValor()));				
+		}
+
+		operacoes.add(operacao);
+	}	
 
 }
