@@ -27,10 +27,8 @@ public class PessoaService extends GenericService<Pessoa>{
 		return pessoaRepository.saveAndFlush(pessoa);
 	}
 
-	public List<Pessoa> listarPessoas() {
-		
+	public List<Pessoa> listarPessoas() {		
 		return pessoaRepository.findAll();
 	}
-	
 
 }

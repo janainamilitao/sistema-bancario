@@ -81,8 +81,7 @@ public class ContaService extends GenericService<Conta>{
 	}
 	
 	public List<Conta> listarContarAtivas() {
-		return contaRepository.findByFlagAtivo(true);
-		
+		return contaRepository.findByFlagAtivo(true);		
 	}
 
 }
