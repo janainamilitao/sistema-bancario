@@ -27,12 +27,7 @@ public class TransacaoController {
 	
 	/***
 	 * Deposita valor em conta recebendo como paramentro ID da conta e caso não exista lança exceção.
-	 * @param transacao
-	 * @param idConta
-	 * @return Conta
-	 * @throws Exception
 	 */
-
 	@PostMapping("/deposito/{idConta}")
 	public Conta deposito(BigDecimal valor, @PathVariable("idConta") Long idConta) throws Exception {		
 		return transacaoService.deposito(valor, idConta);
@@ -40,10 +35,6 @@ public class TransacaoController {
 
 	/***
 	 * Realiza saque  em conta recebendo como paramentro ID da conta e caso não exista lança exceção.
-	 * @param transacao
-	 * @param idConta
-	 * @return Conta
-	 * @throws Exception
 	 */
 	@PostMapping("/saque/{idConta}")
 	public Conta saque(BigDecimal valor, @PathVariable("idConta") Long idConta) throws Exception {		
@@ -51,9 +42,6 @@ public class TransacaoController {
 	}
 	/**
 	 * Realiza extrato da conta recebendo como paramentro ID da conta e caso não exista lança exceção.
-	 * @param idConta
-	 * @return List
-	 * @throws Exception
 	 */
 	
 	@GetMapping("/extrato/{idConta}")
@@ -63,13 +51,8 @@ public class TransacaoController {
 	
 	/**
 	 * Extrato por perído recebendo como parâmetro mês e ano
-	 * @param idConta
-	 * @param mes
-	 * @param ano
-	 * @return List
-	 * @throws Exception
 	 */
-	@GetMapping("/extratoPeriodo/{idConta}/{mes}/{ano}")
+	@GetMapping("/extrato-periodo/{idConta}/{mes}/{ano}")
 	public Extrato extratoPorPeriodo(@PathVariable("idConta") Long idConta,  @PathVariable("mes") int mes,  @PathVariable("ano") int ano ) throws Exception{		
 		return transacaoService.extratoPorPeriodo(idConta, mes, ano);
 	}
